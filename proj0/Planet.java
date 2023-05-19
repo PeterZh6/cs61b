@@ -13,14 +13,14 @@ public class Planet{
         imgFileName = img;
     }
 
-    /** public Planet(Planet p) {
+    public Planet(Planet p) {
         xxPos = p.xxPos;
         yyPos = p.yyPos;
         xxVel = p.xxVel;
         yyVel = p.yyVel;
         mass = p.mass;
         imgFileName = p.imgFileName;
-    } */
+    } 
     public double calcDistance(Planet p2){
         dx = -(xxPos - p2.xxPos);
         dy = -(yyPos - p2.yyPos);
