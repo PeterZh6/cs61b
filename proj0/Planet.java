@@ -3,6 +3,9 @@ public class Planet{
 	public String imgFileName;
     double dx, dy;
     public final static double G = 6.67e-11; /** Gravitational Constatn */
+    public Planet(){
+        xxPos = 0; yyPos = 0; xxVel = 0; yyVel = 0; mass = 0;
+    }
 	public Planet(double xP, double yP, double xV, double yV, double m, String img) {
         xxPos = xP;
         yyPos = yP;
@@ -66,5 +69,8 @@ public class Planet{
         yyVel += dt * fY / mass;
         xxPos += dt * xxVel;
         yyPos += dt * yyVel;
+    }
+    public void draw(){
+        StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
     }
 }
