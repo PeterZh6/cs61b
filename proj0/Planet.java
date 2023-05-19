@@ -1,8 +1,8 @@
 public class Planet{
 	public double xxPos, yyPos, xxVel, yyVel, mass;
 	public String imgFileName;
-    double dx, dy;
-    public final static double G = 6.67e-11; /** Gravitational Constatn */
+    private double dx, dy;
+    private final static double G = 6.67e-11; /** Gravitational Constatn */
     public Planet(){
         xxPos = 0; yyPos = 0; xxVel = 0; yyVel = 0; mass = 0;
     }
@@ -15,20 +15,13 @@ public class Planet{
         imgFileName = img;
     }
 
-    public Planet(Planet p) {
-        xxPos = p.xxPos;
-        yyPos = p.yyPos;
-        xxVel = p.xxVel;
-        yyVel = p.yyVel;
-        mass = p.mass;
-        imgFileName = p.imgFileName;
-    }
-    public double calcDistance(Planet p2){
+
+    /** public double calcDistance(Planet p2){
         dx = -(xxPos - p2.xxPos);
         dy = -(yyPos - p2.yyPos);
         double dx2 = dx * dx, dy2 = dy * dy;
         return Math.sqrt(dx2 + dy2);
-    }
+    } */
     public double calcForceExertedBy(Planet p2){
         return G*mass*(p2.mass)/(calcDistance(p2)*calcDistance(p2));
     }
@@ -38,7 +31,7 @@ public class Planet{
     public double calcForceExertedByY(Planet p2){
         return calcForceExertedBy(p2) * dy / calcDistance(p2);
     }
-    public boolean equals(Planet target){
+    private boolean equals(Planet target){
         if (target.xxPos == xxPos && target.yyPos == yyPos && target.mass == mass){
             return true;
         }
