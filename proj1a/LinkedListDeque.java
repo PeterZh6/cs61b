@@ -1,24 +1,23 @@
 /**first part of project1A.
  * Deque implemented by Linked List
- *
  * @author Peter & PKUFlyingPig
  */
 public class LinkedListDeque<T> {
     private int size = 0;
     private final Node sentinel;
 
-    public class Node {
-        private T item;
-        private Node prev;
-        private Node next;
-        public Node(T item, Node prev, Node next) {
+    private class Node {
+         T item;
+         Node prev;
+         Node next;
+         Node(T item, Node prev, Node next) {
             this.item = item;
             this.prev = prev;
             this.next = next;
         }
 
 
-        public Node(Node prev, Node next) {
+         Node(Node prev, Node next) {
             this.prev = prev;
             this.next = next;
         }
@@ -59,6 +58,7 @@ public class LinkedListDeque<T> {
             return null;
         }
         T deleted = sentinel.next.item;
+        sentinel.next.next.prev = sentinel;
         sentinel.next = sentinel.next.next;
         size--;
         return deleted;
@@ -69,17 +69,17 @@ public class LinkedListDeque<T> {
             return null;
         }
         T deleted = sentinel.prev.item;
+        sentinel.prev.prev.next = sentinel;
         sentinel.prev = sentinel.prev.prev;
         size--;
-        sentinel.prev.next = sentinel;
         return deleted;
     }
 
     public T get(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             return null;
         }
-        Node current = sentinel;
+        Node current = sentinel.next;
         for (int i = 0; i < index; i++) {
             current = current.next;
         }
@@ -87,10 +87,10 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             return null;
         }
-        return getR(index, sentinel);
+        return getR(index, sentinel.next);
 
     }
 
