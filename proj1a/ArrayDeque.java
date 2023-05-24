@@ -32,10 +32,16 @@ public class ArrayDeque<T> {
 			tempContainer[newSize] = array[(head + 1 + newSize) % array.length];
 			newSize++;
 		}
+ 		array = (T[]) new Object[capacity];
+    	head = array.length - 1;
+    	tail = size;
 
-		array = tempContainer;
+    	for (int i = 0; i < size; i++) {
+        array[i] = tempContainer[i];
+    	}
+		/**array = tempContainer;
 		head = array.length - 1;
-		tail = size;
+		tail = size; */
 	}
 
 	private void checkAndResize() {
