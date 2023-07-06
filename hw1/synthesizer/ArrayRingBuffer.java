@@ -25,7 +25,9 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
         //       you'll need to use this.capacity to set the capacity.
 
         rb = (T[]) new Object[capacity];
-        first = last = fillCount = 0;
+        first = 0;
+        last = 0;
+        fillCount = 0;
         this.capacity = capacity;
     }
 
@@ -37,11 +39,11 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
     @Override
     public void enqueue(T x) {
         //Enqueue the item. Don't forget to increase fillCount and update last.
-        if(isFull()) {
+        if (isFull()) {
             throw new RuntimeException("Ring buffer overflow");
         }
         rb[last] = x;
-        last = (last+1) % capacity;
+        last = (last + 1) % capacity;
         fillCount++;
     }
 
@@ -54,11 +56,11 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
     @Override
     public T dequeue() {
         // Dequeue the first item. Don't forget to decrease fillCount and update
-        if(isEmpty()) {
+        if (isEmpty()) {
             throw new RuntimeException("Ring buffer underflow");
         }
-        T dequeueItem = rb[(first+capacity)%capacity];
-        rb[(first+1)%capacity] = null;
+        T dequeueItem = rb[(first + capacity) % capacity];
+        rb[(first + 1) % capacity] = null;
         fillCount--;
         return dequeueItem;
     }
@@ -72,20 +74,20 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
     }
 
     //When you get to part 5, implement the needed code to support iteration.
-    private class ArrayRingBufferIterator implements Iterator<T>{
+    private class ArrayRingBufferIterator implements Iterator<T> {
         private int ptr;
-        private int IterationNum;
+        private int iterationNum;
         public ArrayRingBufferIterator() {
             ptr = first;
-            IterationNum = 0;
+            iterationNum = 0;
         }
         public boolean hasNext() {
-            return IterationNum < fillCount;
+            return iterationNum < fillCount;
         }
         public T next() {
             T returnVal = rb[ptr];
-            ptr = (ptr+1) % capacity;
-            IterationNum++;
+            ptr = (ptr + 1) % capacity;
+            iterationNum++;
             return returnVal;
         }
 

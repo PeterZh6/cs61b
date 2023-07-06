@@ -1,4 +1,4 @@
-// TODO: Make sure to make this class a part of the synthesizer package
+
 package synthesizer;
 
 /**
@@ -20,8 +20,8 @@ public class GuitarString {
         //       cast the result of this division operation into an int. For better
         //       accuracy, use the Math.round() function before casting.
         //       Your buffer should be initially filled with zeros.
-        buffer = new ArrayRingBuffer<Double>((int)Math.round(SR / frequency));
-        for(int i=0; i<buffer.capacity(); i++ ) {
+        buffer = new ArrayRingBuffer<Double>((int) Math.round(SR / frequency));
+        for (int i = 0; i < buffer.capacity(); i++) {
             buffer.enqueue(0.0);
         }
     }
@@ -45,7 +45,7 @@ public class GuitarString {
         //       the average of the two multiplied by the DECAY factor.
         //       Do not call StdAudio.play().
         double dequeItem = buffer.dequeue();
-        buffer.enqueue((dequeItem+buffer.peek())*DECAY/2);
+        buffer.enqueue((dequeItem + buffer.peek()) * DECAY / 2);
     }
 
     /* Return the double at the front of the buffer. */
