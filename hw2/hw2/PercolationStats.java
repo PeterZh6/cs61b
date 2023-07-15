@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdStats;
  * @author zhang
  */
 public class PercolationStats {
-    private Percolation objPercolation;
+    private Percolation simulation;
     private int T;
     private double[] result;
 
@@ -19,14 +19,13 @@ public class PercolationStats {
         this.T = T;
         result = new double[T];
         for (int i = 0; i < T; i++) {
-            // Percolation objPercolation = pf.make(N);
-            Percolation objPercolation = pf.make(N);
-            while (!objPercolation.percolates()) {
+            simulation = pf.make(N);
+            while (!simulation.percolates()) {
                 int randomRow = StdRandom.uniform(N);
                 int randomCol = StdRandom.uniform(N);
-                objPercolation.open(randomRow, randomCol);
+                simulation.open(randomRow, randomCol);
             }
-            result[i] = (double) objPercolation.numberOfOpenSites() / (N * N);
+            result[i] = (double) simulation.numberOfOpenSites() / (N * N);
         }
 
     }   // perform T independent experiments on an N-by-N grid
