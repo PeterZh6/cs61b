@@ -2,7 +2,7 @@ package hw2;
 
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
-import java.lang.Math;
+
 
 /**
  * @author zhang
@@ -18,10 +18,10 @@ public class PercolationStats {
         }
         this.T = T;
         result = new double[T];
-        for (int i=0; i<T ; i++) {
-           // Percolation objPercolation = pf.make(N);
+        for (int i = 0; i < T; i++) {
+            // Percolation objPercolation = pf.make(N);
             Percolation objPercolation = pf.make(N);
-            while(!objPercolation.percolates()) {
+            while (!objPercolation.percolates()) {
                 int randomRow = StdRandom.uniform(N);
                 int randomCol = StdRandom.uniform(N);
                 objPercolation.open(randomRow, randomCol);
