@@ -11,7 +11,7 @@ public class Percolation {
      1 -> open
  */
     private WeightedQuickUnionUF UF;
-    private WeightedQuickUnionUF UFWithoutBackWash;
+    private WeightedQuickUnionUF ufWithoutBackWash;
     private int numOfOpenBlocks;
     private int N; //get the side length of grid to check bound
     private int source, end; //超级源点
@@ -20,7 +20,7 @@ public class Percolation {
             throw new IllegalArgumentException();
         }
         UF = new WeightedQuickUnionUF(N * N + 2); // plus 2 is required for source and end
-        UFWithoutBackWash = new WeightedQuickUnionUF(N * N + 1);
+        ufWithoutBackWash = new WeightedQuickUnionUF(N * N + 1);
         grid  = new int[N][N];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -44,8 +44,9 @@ public class Percolation {
         }
         if (row == 0) {
             UF.union(xyTo1D(row, col), source);
-            UFWithoutBackWash.union(xyTo1D(row, col), source);
-        } else if (row == grid.length - 1) {
+            ufWithoutBackWash.union(xyTo1D(row, col), source);
+        }
+        if (row == grid.length - 1) {
             UF.union(end, xyTo1D(row, col));
         }
 
@@ -60,7 +61,7 @@ public class Percolation {
     private void checkAndUnion(int r, int c, int originX, int originY) {
         if (r >= 0 && r < N && c >= 0 && c < N && grid[r][c] == 1) {
             UF.union(xyTo1D(r, c), xyTo1D(originX, originY));
-            UFWithoutBackWash.union(xyTo1D(r, c), xyTo1D(originX, originY));
+            ufWithoutBackWash.union(xyTo1D(r, c), xyTo1D(originX, originY));
         }
     }
     public boolean isOpen(int row, int col) {
@@ -69,7 +70,7 @@ public class Percolation {
     } // is the site (row, col) open?
     public boolean isFull(int row, int col) {
         isInBound(row, col); // is the site (row, col) full?
-        return UFWithoutBackWash.connected(xyTo1D(row, col), source);
+        return ufWithoutBackWash.connected(xyTo1D(row, col), source);
         //if the tile is connected to the top of the grid, then it is full
     }
     public int numberOfOpenSites() {
@@ -77,9 +78,6 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        if (N == 1) {
-            return grid[0][0] == 1;
-        }
         return UF.connected(source, end);
     }
     public static void main(String[] args) {
